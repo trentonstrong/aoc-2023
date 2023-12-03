@@ -6,7 +6,7 @@ namespace {
         std::pair<char, char> digits;
         digits.first = -1;
         digits.second = -1;
-        for (char c : s) {
+        for (const char c : s) {
             if (isdigit(c)) {
                 if (digits.first == -1) {
                     digits.first = c;
@@ -14,13 +14,13 @@ namespace {
                 digits.second = c;
             }
         }
-        std::string value{digits.first, digits.second};
-        return atoi(value.c_str());
+        const std::string value{digits.first, digits.second};
+        return std::stoi(value);
     }
 }
 
 int main() {
-    std::fstream fs = std::fstream("../inputs/01_calibration.txt", std::ios::in);
+    auto fs = std::fstream("../inputs/01_calibration.txt", std::ios::in);
     std::string s;
     if (!fs.is_open()) {
         std::cerr << "Failed to open file" << std::endl;
@@ -29,7 +29,7 @@ int main() {
 
     int sum = 0;
     while (fs >> s) {
-        int value = parse_calibration_values(s);
+        const int value = parse_calibration_values(s);
         std::cout << s << "->" << value << std::endl;
         sum += value;
     }
